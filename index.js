@@ -69,6 +69,7 @@ teamMembers.forEach(member => {
       return res.status(404).json({ error: `Messages for ${member} not found.` });
     }
     const messages = JSON.parse(fs.readFileSync(memberFilePath));
+    const timestamp = new Date().toISOString();
     messages.push({ id: Date.now(), text: newMessage });
     fs.writeFileSync(memberFilePath, JSON.stringify(messages));
     res.status(201).json({ message: 'Message added successfully.' });
