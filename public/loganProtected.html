@@ -43,7 +43,10 @@
         messages.forEach(msg => {
           const li = document.createElement('li');
           li.className = 'message';
-          li.textContent = msg.text;
+          li.innerHTML = `
+            <p>${msg.text}</p>
+            <p class="timestamp">Sent at: ${new Date(msg.timestamp).toLocaleString()}</p>
+          `;
           messagesList.appendChild(li);
         });
       } catch (error) {
@@ -57,7 +60,7 @@
     // Ensure user is authenticated
     if (!sessionStorage.getItem('authenticated')) {
             alert('You must log in first!');
-            window.location.href = 'lockScreen.html';
+            window.location.href = 'login.html';
         }
   </script>
 </body>
