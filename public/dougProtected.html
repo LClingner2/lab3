@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Doug's Protected Messages</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    h1 {
+      text-align: center;
+    }
+    #messages {
+      list-style: none;
+      padding: 0;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .message {
+      padding: 10px;
+      border: 1px solid #ccc;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Doug's Messages</h1>
+  <ul id="messages"></ul>
+
+  <script>
+    const member = 'doug'; // Matches backend route for Logan's messages
+
+    // Fetch and display messages
+    async function loadMessages() {
+      try {
+        const response = await fetch(`/api/messages/${member}`);
+        if (!response.ok) throw new Error('Failed to fetch messages');
+        const messages = await response.json();
+        const messagesList = document.getElementById('messages');
+        messagesList.innerHTML = '';
+        messages.forEach(msg => {
+          const li = document.createElement('li');
+          li.className = 'message';
+          li.textContent = msg.text;
+          messagesList.appendChild(li);
+        });
+      } catch (error) {
+        console.error('Error loading messages:', error);
+      }
+    }
+
+    // Load messages on page load
+    loadMessages();
+  </script>
+</body>
+</html>

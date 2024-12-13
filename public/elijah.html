@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Elijah's Page</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    h1 {
+      text-align: center;
+    }
+    #message-form {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+    #message-input {
+      width: 70%;
+      padding: 10px;
+      margin-right: 10px;
+    }
+    button {
+      padding: 10px 20px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>Elijah's Page</h1>
+  <form id="message-form">
+    <input type="text" id="message-input" placeholder="Type your message here" required>
+    <button type="submit">Send</button>
+  </form>
+
+  <script>
+    const member = 'elijah'; // Matches backend route for Logan's messages
+
+    // Submit a new message and redirect to the protected page
+    document.getElementById('message-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const messageInput = document.getElementById('message-input');
+      const message = messageInput.value;
+
+      try {
+        const response = await fetch(`/api/messages/${member}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message }),
+        });
+        if (!response.ok) throw new Error('Failed to send message');
+        messageInput.value = '';
+      } catch (error) {
+        console.error('Error sending message:', error);
+      }
+    });
+  </script>
+</body>
+</html>

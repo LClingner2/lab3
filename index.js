@@ -18,7 +18,7 @@ if (!fs.existsSync(messagesDir)) {
 }
 
 // Ensure each team member has a JSON file for messages
-const teamMembers = ['logan', 'member2', 'member3', 'member4'];
+const teamMembers = ['logan', 'joey', 'doug', 'elijah'];
 teamMembers.forEach(member => {
   const memberFilePath = path.join(messagesDir, `${member}.json`);
   if (!fs.existsSync(memberFilePath)) {
