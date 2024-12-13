@@ -19,6 +19,7 @@ app.use(session({
 
 // Serve static files from the 'public' directory
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/images', express.static(path.join(__dirname, 'images')));
 
 // Initialize messages storage for team members
 const messagesDir = path.join(__dirname, 'messages');
