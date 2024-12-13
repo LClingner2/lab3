@@ -5,7 +5,7 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
     const message = document.getElementById('message');
 
     // Obfuscated password (e.g., Base64 encoded)
-    const encodedPassword = "RmFsbDIwMjRMYWIz"; // Password encoded in Base64
+    const encodedPassword = "cm9jaw=="; // Password encoded in Base64
     const validPassword = atob(encodedPassword); // Decode the password
 
     if (enteredPassword === validPassword) {
