@@ -136,4 +136,29 @@
       </div>
     </div>
 
+    <script>
+      const member = 'doug'; // Matches backend route for Logan's messages
+  
+      // Submit a new message and redirect to the protected page
+      document.getElementById('message-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const messageInput = document.getElementById('message-input');
+        const message = messageInput.value;
+  
+        try {
+          const response = await fetch(`/api/messages/${member}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ message }),
+          });
+          if (!response.ok) throw new Error('Failed to send message');
+          messageInput.value = '';
+        } catch (error) {
+          console.error('Error sending message:', error);
+        }
+      });
+    </script>
+  </body>
+  </html>
+
   
