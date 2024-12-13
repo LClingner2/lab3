@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Message Board</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    #message-form {
+      margin-bottom: 20px;
+    }
+    #messages {
+      list-style: none;
+      padding: 0;
+    }
+    .message {
+      padding: 10px;
+      border: 1px solid #ccc;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Message Board</h1>
+  <form id="message-form">
+    <input type="text" id="message-input" placeholder="Type your message" required>
+    <button type="submit">Send</button>
+  </form>
+  <ul id="messages"></ul>
+  <script>
+    // Fetch and display messages
+    async function loadMessages() {
+      const response = await fetch('/api/messages');
+      const messages = await response.json();
+      const messagesList = document.getElementById('messages');
+      messagesList.innerHTML = '';
+      messages.forEach(msg => {
+        const li = document.createElement('li');
+        li.className = 'message';
+        li.textContent = msg.text;
+        messagesList.appendChild(li);
+      });
+    }
+
+    // Submit new message
+    document.getElementById('message-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const messageInput = document.getElementById('message-input');
+      const message = messageInput.value;
+
+      await fetch('/api/messages', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message }),
+      });
+
+      messageInput.value = '';
+      loadMessages();
+    });
+
+    // Load messages on page load
+    loadMessages();
+  </script>
+</body>
+</html>
