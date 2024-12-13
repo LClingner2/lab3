@@ -5,38 +5,161 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Joey's Page</title>
   <style>
+    /* Importing fonts as per University of Iowa's brand guidelines */
+    @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Roboto:wght@400;700&display=swap');
+
+    /* General body styling */
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Roboto', Arial, sans-serif;
       margin: 20px;
+      background-color: black;
+      color: gold;
     }
+
+    /* Styling for the header */
     h1 {
       text-align: center;
+      color: gold;
+      font-family: 'Merriweather', serif;
+      font-size: 2.5em;
+      margin-bottom: 10px;
+      text-shadow: 2px 2px 5px rgba(255, 215, 0, 0.7);
     }
+
+    /* Description block styling */
+    #description {
+      text-align: center;
+      margin: 20px auto;
+      font-family: 'Roboto', sans-serif;
+      font-size: 1.2em;
+      line-height: 1.5;
+      max-width: 600px;
+    }
+
+    /* Profile image container styling */
+    #profile-image {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    #profile-image img {
+      border: 3px solid gold;
+      border-radius: 50%;
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      box-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
+    }
+
+    /* Form container styling */
     #message-form {
       display: flex;
       justify-content: center;
       margin-top: 20px;
     }
+
+    /* Input field styling */
     #message-input {
       width: 70%;
       padding: 10px;
       margin-right: 10px;
+      border: 2px solid gold;
+      background-color: black;
+      color: gold;
+      border-radius: 5px;
+      font-family: 'Roboto', sans-serif;
+      font-size: 1em;
     }
+
+    #message-input::placeholder {
+      color: gold;
+      opacity: 0.7;
+    }
+
+    /* Button styling */
     button {
       padding: 10px 20px;
       cursor: pointer;
+      background-color: gold;
+      color: black;
+      border: none;
+      border-radius: 5px;
+      font-family: 'Roboto', sans-serif;
+      font-size: 1em;
+      transition: background-color 0.3s, transform 0.3s;
+    }
+
+    button:hover {
+      background-color: rgba(255, 215, 0, 0.8);
+      transform: scale(1.05);
+    }
+
+    button:active {
+      transform: scale(0.95);
+    }
+
+    /* Gallery section styling */
+    #photo-gallery {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 30px;
+    }
+
+    #photo-gallery img {
+      border: 3px solid gold;
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
+    }
+
+    .photo-label {
+      text-align: center;
+      margin-top: 5px;
+      font-family: 'Merriweather', serif;
+      font-size: 1em;
     }
   </style>
 </head>
 <body>
   <h1>Joey's Page</h1>
+
+  <!-- Description block -->
+  <div id="description">
+    <p>Welcome to my personal page! I’m Joe Brady, a Computer Science and Engineering Major</p>
+  </div>
+
+  <!-- Profile image placeholder -->
+  <div id="profile-image">
+    <img src="../images/professional.jpg" alt="Joey's Profile Picture" title="Joey's Profile Picture">
+  </div>
+
+  <!-- Message form -->
   <form id="message-form">
     <input type="text" id="message-input" placeholder="Type your message here" required>
     <button type="submit">Send</button>
   </form>
 
+  <!-- Photo gallery -->
+  <div id="photo-gallery">
+    <div>
+      <img src="../images/walugi.jpg" alt="Waluigi" title="Waluigi">
+      <p class="photo-label">Waluigi</p>
+    </div>
+    <div>
+      <img src="../images/spotify_wrapped.png" alt="Spotify" title="Spotify">
+      <p class="photo-label">Spotify</p>
+    </div>
+    <div>
+      <img src="../images/child.jpg" alt="Mouse" title="Mouse">
+      <p class="photo-label">Mouse</p>
+    </div>
+  </div>
+
   <script>
-    const member = 'joey'; // Matches backend route for Logan's messages
+    const member = 'joey'; // Matches backend route for Joey's messages
 
     // Submit a new message and redirect to the protected page
     document.getElementById('message-form').addEventListener('submit', async (e) => {
