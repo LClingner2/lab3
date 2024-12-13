@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Member 1's Page</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    #message-form {
+      margin-bottom: 20px;
+    }
+    #messages {
+      list-style: none;
+      padding: 0;
+    }
+    .message {
+      padding: 10px;
+      border: 1px solid #ccc;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Member 1's Messages</h1>
+  <form id="message-form">
+    <input type="text" id="message-input" placeholder="Type your message" required>
+    <button type="submit">Send</button>
+  </form>
+  <ul id="messages"></ul>
+
+  <script>
+    // Fetch and display messages for Member 1
+    async function loadMessages() {
+      const response = await fetch('/api/messages/member1');
+      const messages = await response.json();
+      const messagesList = document.getElementById('messages');
+      messagesList.innerHTML = '';
+      messages.forEach(msg => {
+        const li = document.createElement('li');
+        li.className = 'message';
+        li.textContent = msg.text;
+        messagesList.appendChild(li);
+      });
+    }
+
+    // Submit new message for Member 1
+    document.getElementById('message-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const messageInput = document.getElementById('message-input');
+      const message = messageInput.value;
+
+      await fetch('/api/messages/member1', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message }),
+      });
+
+      messageInput.value = '';
+      loadMessages();
+    });
+
+    // Load messages on page load
+    loadMessages();
+  </script>
+</body>
+</html>
