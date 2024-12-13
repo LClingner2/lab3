@@ -3,18 +3,34 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Member 1's Messages</title>
+  <title>Logan's Messages</title>
   <style>
     body {
       font-family: Arial, sans-serif;
       margin: 20px;
     }
+    h1 {
+      text-align: center;
+    }
     #message-form {
       margin-bottom: 20px;
+      display: flex;
+      justify-content: center;
+    }
+    #message-input {
+      width: 70%;
+      padding: 10px;
+      margin-right: 10px;
+    }
+    button {
+      padding: 10px 20px;
+      cursor: pointer;
     }
     #messages {
       list-style: none;
       padding: 0;
+      max-width: 600px;
+      margin: 0 auto;
     }
     .message {
       padding: 10px;
@@ -24,44 +40,53 @@
   </style>
 </head>
 <body>
-  <h1>Member 1's Messages</h1>
+  <h1>Logan's Messages</h1>
   <form id="message-form">
-    <input type="text" id="message-input" placeholder="Type your message" required>
+    <input type="text" id="message-input" placeholder="Type your message here" required>
     <button type="submit">Send</button>
   </form>
   <ul id="messages"></ul>
 
   <script>
-    const member = 'logan'; // Change this for each member's page
+    const member = 'member1'; // Backend identifier for Logan
 
-    // Fetch and display messages for the current member
+    // Fetch and display messages
     async function loadMessages() {
-      const response = await fetch(`/api/messages/${member}`);
-      const messages = await response.json();
-      const messagesList = document.getElementById('messages');
-      messagesList.innerHTML = '';
-      messages.forEach(msg => {
-        const li = document.createElement('li');
-        li.className = 'message';
-        li.textContent = msg.text;
-        messagesList.appendChild(li);
-      });
+      try {
+        const response = await fetch(`/api/messages/${member}`);
+        if (!response.ok) throw new Error('Failed to fetch messages');
+        const messages = await response.json();
+        const messagesList = document.getElementById('messages');
+        messagesList.innerHTML = '';
+        messages.forEach(msg => {
+          const li = document.createElement('li');
+          li.className = 'message';
+          li.textContent = msg.text;
+          messagesList.appendChild(li);
+        });
+      } catch (error) {
+        console.error('Error loading messages:', error);
+      }
     }
 
-    // Submit new message for the current member
+    // Submit a new message
     document.getElementById('message-form').addEventListener('submit', async (e) => {
       e.preventDefault();
       const messageInput = document.getElementById('message-input');
       const message = messageInput.value;
 
-      await fetch(`/api/messages/${member}`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message }),
-      });
-
-      messageInput.value = '';
-      await loadMessages(); // Reload messages to include the new one
+      try {
+        const response = await fetch(`/api/messages/${member}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message }),
+        });
+        if (!response.ok) throw new Error('Failed to send message');
+        messageInput.value = '';
+        loadMessages(); // Reload messages after sending
+      } catch (error) {
+        console.error('Error sending message:', error);
+      }
     });
 
     // Load messages on page load
