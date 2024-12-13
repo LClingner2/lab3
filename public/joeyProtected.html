@@ -3,34 +3,68 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Joey's Protected Messages</title>
+  <title>Joe's Protected Messages</title>
   <style>
     body {
       font-family: Arial, sans-serif;
       margin: 20px;
+      background-color: black;
+      color: gold;
     }
     h1 {
       text-align: center;
+      color: gold;
     }
     #messages {
       list-style: none;
       padding: 0;
       max-width: 600px;
-      margin: 0 auto;
+      margin: 20px auto;
+      border: 2px solid gold;
+      border-radius: 10px;
+      background-color: #222;
     }
     .message {
       padding: 10px;
-      border: 1px solid #ccc;
-      margin-bottom: 10px;
+      border-bottom: 1px solid gold;
+    }
+    .message:last-child {
+      border-bottom: none;
+    }
+    .timestamp {
+      font-size: 0.9em;
+      color: #aaa;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    button, a {
+      background-color: gold;
+      color: black;
+      padding: 10px 20px;
+      margin: 10px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      font-size: 1em;
+      border-radius: 5px;
+    }
+    button:hover, a:hover {
+      background-color: #ffd700;
     }
   </style>
 </head>
 <body>
-  <h1>Joey's Messages</h1>
-  <ul id="messages"></ul>
+  <div class="container">
+    <h1>Joe's Messages</h1>
+    <ul id="messages"></ul>
+    <a href="/protected.html">Back</a>
+  </div>
 
   <script>
-    const member = 'joey'; // Matches backend route for Logan's messages
+    const member = 'joey'; // Matches backend route for Joe's messages
 
     // Fetch and display messages
     async function loadMessages() {
@@ -43,7 +77,10 @@
         messages.forEach(msg => {
           const li = document.createElement('li');
           li.className = 'message';
-          li.textContent = msg.text;
+          li.innerHTML = `
+            <p>${msg.text}</p>
+            <p class="timestamp">Sent at: ${new Date(msg.timestamp).toLocaleString()}</p>
+          `;
           messagesList.appendChild(li);
         });
       } catch (error) {
@@ -51,14 +88,15 @@
       }
     }
 
-    // Load messages on page load
-    loadMessages();
-
     // Ensure user is authenticated
     if (!sessionStorage.getItem('authenticated')) {
-            alert('You must log in first!');
-            window.location.href = 'login.html';
-        }
+      alert('You must log in first!');
+      window.location.href = 'login.html';
+    }
+
+    // Load messages on page load
+    loadMessages();
   </script>
 </body>
 </html>
+
