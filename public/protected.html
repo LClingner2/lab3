@@ -4,22 +4,57 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Protected Content</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: black;
+      color: gold;
+      text-align: center;
+      margin: 20px;
+    }
+    h1 {
+      font-size: 2.5em;
+      color: gold;
+    }
+    a {
+      display: block;
+      margin: 15px 0;
+      font-size: 1.2em;
+      text-decoration: none;
+      color: gold;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    #message {
+      color: red;
+      font-size: 1em;
+      margin-top: 20px;
+    }
+  </style>
 </head>
 <body>
-  <h1>Protected Content</h1>
-  <p>Welcome to the protected area!</p>
-  <a href="/loganProtected.html">Logan's Messages</a>
-  <a href="/joeyProtected.html">Joey's Messages</a>
-  <a href="/dougProtected.html">Doug's Messages</a>
-  <a href="/elijahProtected.html">Elijah's Messages</a>
-  <a href="/index.html">Logout</a>
+  <div class="container">
+    <h1>Protected Content</h1>
+    <p>Welcome to the protected area! Use the links below to navigate to the team member's protected messages.</p>
+    <a href="/loganProtected.html">Logan's Messages</a>
+    <a href="/joeyProtected.html">Joey's Messages</a>
+    <a href="/dougProtected.html">Doug's Messages</a>
+    <a href="/elijahProtected.html">Elijah's Messages</a>
+    <a href="/logout">Logout</a>
+    <p id="message"></p>
+  </div>
 
-    <script>
-        // Ensure user is authenticated
-        if (!sessionStorage.getItem('authenticated')) {
-            alert('You must log in first!');
-            window.location.href = 'login.html';
-        }
-    </script>
+  <script>
+    // Ensure user is authenticated
+    if (!sessionStorage.getItem('authenticated')) {
+      alert('You must log in first!');
+      window.location.href = 'login.html';
+    }
+  </script>
 </body>
 </html>
