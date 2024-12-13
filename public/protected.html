@@ -8,6 +8,18 @@
 <body>
   <h1>Protected Content</h1>
   <p>Welcome to the protected area!</p>
-  <a href="/logout">Logout</a>
+  <a href="/loganProtected.html">Logan's Messages</a>
+  <a href="/joeyProtected.html">Joey's Messages</a>
+  <a href="/dougProtected.html">Doug's Messages</a>
+  <a href="/elijahProtected.html">Elijah's Messages</a>
+  <a href="/index.html">Logout</a>
+
+    <script>
+        // Ensure user is authenticated
+        if (!sessionStorage.getItem('authenticated')) {
+            alert('You must log in first!');
+            window.location.href = 'lockScreen.html';
+        }
+    </script>
 </body>
 </html>
