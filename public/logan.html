@@ -52,8 +52,6 @@
         });
         if (!response.ok) throw new Error('Failed to send message');
         messageInput.value = '';
-        // Redirect to the protected page
-        window.location.href = `/${member}Protected`;
       } catch (error) {
         console.error('Error sending message:', error);
       }
