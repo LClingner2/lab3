@@ -32,9 +32,16 @@ teamMembers.forEach(member => {
     res.sendFile(path.join(__dirname, 'public', `${member}.html`));
   });
 
+  app.get(`/${member}Protected`, (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', `${member}Protected.html`));
+  });
+
   // API route to get messages for a specific member
   app.get(`/api/messages/${member}`, (req, res) => {
     const memberFilePath = path.join(messagesDir, `${member}.json`);
+    if (!fs.existsSync(memberFilePath)) {
+      return res.status(404).json({ error: `Messages for ${member} not found.` });
+    }
     const messages = JSON.parse(fs.readFileSync(memberFilePath));
     res.json(messages);
   });
@@ -46,6 +53,9 @@ teamMembers.forEach(member => {
       return res.status(400).json({ error: 'Message text is required.' });
     }
     const memberFilePath = path.join(messagesDir, `${member}.json`);
+    if (!fs.existsSync(memberFilePath)) {
+      return res.status(404).json({ error: `Messages for ${member} not found.` });
+    }
     const messages = JSON.parse(fs.readFileSync(memberFilePath));
     messages.push({ id: Date.now(), text: newMessage });
     fs.writeFileSync(memberFilePath, JSON.stringify(messages));
@@ -65,7 +75,7 @@ app.listen(PORT, () => {
 
 // Instructions for deployment:
 // 1. Create a 'public' folder and place your HTML, CSS, and JS files there.
-//    Add member-specific HTML files: member1.html, member2.html, etc.
+//    Add member-specific HTML files: logan.html, loganProtected.html, member2.html, etc.
 // 2. Add a 'Procfile' in the root directory with the following content:
 //    web: node index.js
 // 3. Initialize a Git repository and commit your files.
