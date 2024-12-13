@@ -75,6 +75,33 @@
       border: 3px solid white;
     }
 
+    #social-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .social-button {
+      width: 50px;
+      height: 50px;
+      background-color: #ffd200;
+      border: none;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 24px;
+      color: black;
+      transition: box-shadow 0.3s ease;
+      text-decoration: none;
+    }
+
+    .social-button:hover {
+      box-shadow: 0 0 10px yellow;
+    }
+
     #message-form {
       display: flex;
       justify-content: center;
@@ -126,7 +153,14 @@
   <div id="overlay">
     <img id="profile-img" src="/images/ElijahsFace.jpg" alt="Profile Image">
     <h2>About Me</h2>
-    <p>Hi, my name is Elijah Gladden and I am a senior studying Computer Science Engineering with an emphasis in software development. I am also the Head Manager for the University of Iowa's Women's Gymnastics Team. Aside from school and gymnastics, I deeply love all things related to automobiles and motorsports. My dream cars are: the 2016 Nissan GTR Nismo, the Nissan 370Z, and the 1995 Ford Bronco Eddie Bauer Edition.   </p>
+    <p>Hi, my name is Elijah Gladden and I am a senior studying Computer Science Engineering with an emphasis in software development. I am also the Head Manager for the University of Iowa's Women's Gymnastics Team. Aside from school and gymnastics, I deeply love all things related to automobiles and motorsports. My dream cars are: the 2016 Nissan GTR Nismo, the Nissan 370Z, and the 1995 Ford Bronco Eddie Bauer Edition.</p>
+
+    <!-- Social Buttons -->
+    <div id="social-buttons">
+      <a href="https://www.linkedin.com/in/elijah-gladden-101490332/" target="_blank" class="social-button">LI</a>
+      <a href="https://www.instagram.com/gladdenelijah/" target="_blank" class="social-button">IG</a>
+      <a href="https://github.com/egladden35" target="_blank" class="social-button">GH</a>
+    </div>
   </div>
 
   <!-- Messaging form -->
