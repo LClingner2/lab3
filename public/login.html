@@ -1,11 +1,59 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Screen</title>
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: black;
+            color: gold;
+            text-align: center;
+            margin: 20px;
+        }
+        h1 {
+            color: gold;
+        }
+        .login-container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 2px solid gold;
+            border-radius: 10px;
+            background-color: #222;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid gold;
+            border-radius: 5px;
+            background-color: black;
+            color: gold;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: gold;
+            color: black;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #ffd700;
+        }
+        #message {
+            margin-top: 10px;
+            font-size: 0.9em;
+            color: red;
+        }
+    </style>
 </head>
 <body>
     <div class="login-container">
@@ -13,7 +61,6 @@
         <form id="loginForm">
             <label for="password">Password</label>
             <input type="password" id="password" name="password" placeholder="Enter Password" required>
-
             <button type="submit">Login</button>
         </form>
         <p id="message"></p>
@@ -21,5 +68,3 @@
     <script src="script.js"></script>
 </body>
 </html>
-
-

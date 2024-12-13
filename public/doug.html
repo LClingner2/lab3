@@ -3,14 +3,49 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Doug's Page</title>
+  <title>Doug's Resume</title>
   <style>
     body {
       font-family: Arial, sans-serif;
       margin: 20px;
+      line-height: 1.6;
+      color: #333;
+      background-color: #ffCd00;
     }
     h1 {
       text-align: center;
+      margin-bottom: 20px;
+      background-color: black;
+      color: white;
+      padding: 10px 0;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .profile {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .profile img {
+      border-radius: 50%;
+      width: 150px;
+      height: 150px;
+    }
+    .section {
+      margin-bottom: 20px;
+    }
+    .section h2 {
+      border-bottom: 2px solid #555;
+      padding-bottom: 5px;
+      margin-bottom: 10px;
+    }
+    .section ul {
+      list-style: none;
+      padding: 0;
+    }
+    .section ul li {
+      margin-bottom: 10px;
     }
     #message-form {
       display: flex;
@@ -26,36 +61,79 @@
       padding: 10px 20px;
       cursor: pointer;
     }
+    .hobbies {
+      text-align: center;
+      margin-top: 20px;
+    }
+    .hobbies img {
+      width: 150px;
+      height: 150px;
+      margin: 10px;
+      border: 2px solid #333;
+      border-radius: 10px;
+    }
+    .hobbies-text {
+      margin-top: 10px;
+      text-align: center;
+      font-size: 1.2em;
+      color: #444;
+    }
   </style>
 </head>
 <body>
-  <h1>Doug's Page</h1>
+  <h1>Douglas Deutsch</h1>
   <form id="message-form">
     <input type="text" id="message-input" placeholder="Type your message here" required>
     <button type="submit">Send</button>
   </form>
+  <div class="container">
+    <!-- Profile Section -->
+    <div class="profile">
+      <img src="../images/dougdeutsch.png" alt="Doug's Profile Picture" id="profile-pic">
+      <p><strong>Name:</strong> Douglas (Doug) Deutsch</p>
+      <p><strong>Email:</strong> deutschdoug12@gmail.com</p>
+    </div>
 
-  <script>
-    const member = 'doug'; // Matches backend route for Logan's messages
+    <!-- Education Section -->
+    <div class="section" id="education">
+      <h2>Education</h2>
+      <ul>
+        <li><strong>Bachelor of Electrical Engineering (Integrated Circuits)</strong> - University of Iowa (2021 - 2025)</li>
+      </ul>
+    </div>
 
-    // Submit a new message and redirect to the protected page
-    document.getElementById('message-form').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const messageInput = document.getElementById('message-input');
-      const message = messageInput.value;
+    <!-- Work Experience Section -->
+    <div class="section" id="experience">
+      <h2>Work Experience</h2>
+      <ul>
+        <li><strong>Job Title:</strong> Teaching Assistant</li>
+        <li><strong>Course:</strong> ECE:3410 Electronic Circuits</li>
+        <li><strong>Term:</strong> Fall 2024</li>
+        <li><strong>Responsibilities:</strong> Grading assignments, holding office hours, conducting bi-weekly labs, and assisting students with course material.</li>
+      </ul>
+    </div>
 
-      try {
-        const response = await fetch(`/api/messages/${member}`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ message }),
-        });
-        if (!response.ok) throw new Error('Failed to send message');
-        messageInput.value = '';
-      } catch (error) {
-        console.error('Error sending message:', error);
-      }
-    });
-  </script>
-</body>
-</html>
+    <!-- Skills Section -->
+    <div class="section" id="skills">
+      <h2>Skills</h2>
+      <ul>
+        <li>IC Design and Development</li>
+        <li>Hardware Troubleshooting</li>
+        <li>German</li>
+      </ul>
+    </div>
+
+    <!-- Hobbies Section -->
+    <div class="section hobbies">
+      <h2>Hobbies</h2>
+      <div>
+        <img src="../images/doug1.png" alt="Hobby 1">
+        <img src="../images/doug2.png">
+        <img src="../images/doug3.png" alt="Hobby 3">
+      </div>
+      <div class="hobbies-text">
+        In my free time, I like watching the Hawkeyes. I like going outdoors, it gives me a chance to relax and connect with. I enjoy spending quality time with my loyal dog, Heidi, who always brings joy to me.
+      </div>
+    </div>
+
+  
