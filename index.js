@@ -1,12 +1,21 @@
 const express = require('express');
 const path = require('path');
 const fs = require('fs');
+const session = require('express-session');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Middleware to parse JSON
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// Session middleware for authentication
+app.use(session({
+  secret: 'securePasswordKey',
+  resave: false,
+  saveUninitialized: true,
+}));
 
 // Serve static files from the 'public' directory
 app.use(express.static(path.join(__dirname, 'public')));
@@ -33,6 +42,9 @@ teamMembers.forEach(member => {
   });
 
   app.get(`/${member}Protected`, (req, res) => {
+    if (!req.session.isAuthenticated) {
+      return res.redirect('/login');
+    }
     res.sendFile(path.join(__dirname, 'public', `${member}Protected.html`));
   });
 
@@ -63,6 +75,38 @@ teamMembers.forEach(member => {
   });
 });
 
+// Login route
+app.get('/login', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'login.html'));
+});
+
+// Login authentication
+app.post('/login', (req, res) => {
+  const { password } = req.body;
+  const correctPassword = 'securepassword'; // Replace with your secure password
+  if (password === correctPassword) {
+    req.session.isAuthenticated = true;
+    res.redirect('/protected');
+  } else {
+    res.status(401).send('Incorrect password. Please try again.');
+  }
+});
+
+// Protected content route
+app.get('/protected', (req, res) => {
+  if (!req.session.isAuthenticated) {
+    return res.redirect('/login');
+  }
+  res.sendFile(path.join(__dirname, 'public', 'protected.html'));
+});
+
+// Logout route
+app.get('/logout', (req, res) => {
+  req.session.destroy(() => {
+    res.redirect('/login');
+  });
+});
+
 // Define a basic route
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
@@ -76,6 +120,7 @@ app.listen(PORT, () => {
 // Instructions for deployment:
 // 1. Create a 'public' folder and place your HTML, CSS, and JS files there.
 //    Add member-specific HTML files: logan.html, loganProtected.html, member2.html, etc.
+//    Add login.html and protected.html.
 // 2. Add a 'Procfile' in the root directory with the following content:
 //    web: node index.js
 // 3. Initialize a Git repository and commit your files.
