@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Member 1's Page</title>
+  <title>Member 1's Messages</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -32,9 +32,11 @@
   <ul id="messages"></ul>
 
   <script>
-    // Fetch and display messages for Member 1
+    const member = 'logan'; // Change this for each member's page
+
+    // Fetch and display messages for the current member
     async function loadMessages() {
-      const response = await fetch('/api/messages/member1');
+      const response = await fetch(`/api/messages/${member}`);
       const messages = await response.json();
       const messagesList = document.getElementById('messages');
       messagesList.innerHTML = '';
@@ -46,20 +48,20 @@
       });
     }
 
-    // Submit new message for Member 1
+    // Submit new message for the current member
     document.getElementById('message-form').addEventListener('submit', async (e) => {
       e.preventDefault();
       const messageInput = document.getElementById('message-input');
       const message = messageInput.value;
 
-      await fetch('/api/messages/member1', {
+      await fetch(`/api/messages/${member}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message }),
       });
 
       messageInput.value = '';
-      loadMessages();
+      await loadMessages(); // Reload messages to include the new one
     });
 
     // Load messages on page load
